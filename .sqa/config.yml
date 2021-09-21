@@ -1,14 +1,14 @@
 config:
-  project_repos:
-    myrepo:
-      repo: 'https://github.com/EOSC-synergy/FAIR_eva'
-
+  credentials: []
+  project_repos: {}
+environment: {}
 sqa_criteria:
-  qc_style:
+  QC.FAIR:
     repos:
-      myrepo:
-        container: faireva-testing
-        tox:
-          tox_file: '/faireva-testing/tox.ini'
-          testenv:
-            - pep8
+      this_repo:
+        commands:
+        - 'curl -H ''Accept: application/json'' -H "Content-Type: application/json"
+          -H "Authorization: Basic bWFydmVsOndvbmRlcndvbWFu" -X POST -d ''{"metadata_service_endpoint":"http://digital.csic.es/dspace-oai/request","metadata_service_type":"oai_pmh","object_identifier":"http://hdl.handle.net/10261/157765","test_debug":true,"use_datacite":true}''
+          http://localhost:1071/fuji/api/v1/evaluate'
+        container: qc.fair_bluesy-harlequin-tarsier
+timeout: 600
